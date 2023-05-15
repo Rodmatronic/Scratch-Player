@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        #iframeContainer {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-origin: center;
+            transform: scale(1);
+            transition: transform 0.5s;
+        }
+        #iframeContainer.zoomed {
+            transform: scale(1.15) translateY(-5.5%);
+        }
+    </style>
+</head>
+<body>
+    <div id="iframeContainer">
+        <iframe id="projectFrame" src="" allowtransparency="true" width="541" height="413" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        var iframeContainer = document.getElementById("iframeContainer");
+        var projectFrame = document.getElementById("projectFrame");
+        setTimeout(function() {
+            iframeContainer.classList.add("zoomed");
+        }, 100); // Change the delay (in milliseconds) as desired
+
+        // Optional: Add a delay to revert back to the original scale
+        setTimeout(function() {
+            iframeContainer.classList.remove("zoomed");
+        }, 9999999999); // Change the delay (in milliseconds) as desired
+
+        // Close the popup window when ESC key is pressed
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                window.close();
+            }
+        });
+
+        // Set the window size to "width=541,height=413" on window load
+        window.addEventListener("load", function() {
+            var params = new URLSearchParams(window.location.search);
+            var projectLink = params.get("projectLink");
+            projectFrame.src = "https://scratch.mit.edu/projects/" + projectLink + "/embed";
+            window.resizeTo(559, 480);
+        });
+    </script>
+</body>
+</html>
